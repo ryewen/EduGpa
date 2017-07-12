@@ -11,7 +11,7 @@ import model.Student;
 public class Demo {
 
 	public static void main(String[] args) {
-		List<Cookie> cookies = Client.getCookies("20143939", "a19960712", "STU");
+		List<Cookie> cookies = Client.getCookies("username", "password", "STU");
 		if (cookies != null) {
 			System.out.println("OK");
 			CountDownLatch latch = new CountDownLatch(4);
