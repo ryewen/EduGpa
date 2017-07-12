@@ -2,6 +2,7 @@ package net;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.Scanner;
 import java.util.concurrent.CountDownLatch;
 
 import org.apache.http.cookie.Cookie;
@@ -11,11 +12,21 @@ import model.Student;
 public class Demo {
 
 	public static void main(String[] args) {
-		List<Cookie> cookies = Client.getCookies("username", "password", "STU");
+		Scanner sc = new Scanner(System.in);
+		System.out.println("输入学号:");
+		String username = sc.nextLine();
+		System.out.println(username);
+		System.out.println("输入密码:");
+		String password = sc.nextLine();
+		List<Cookie> cookies = Client.getCookies(username, password, "STU");
 		if (cookies != null) {
 			System.out.println("OK");
 			CountDownLatch latch = new CountDownLatch(4);
-			List<Student> students = ScoreGetter.getStudentsFast("20143902", "20144199", cookies, latch);
+			System.out.println("输入起始学号:");
+			String start = sc.nextLine();
+			System.out.println("输入终止学号:");
+			String end = sc.nextLine();
+			List<Student> students = ScoreGetter.getStudentsFast(start, end, cookies, latch); //20143902-20144199
 			try {
 				latch.await();
 				Iterator<Student> it = students.iterator();
