@@ -25,7 +25,12 @@ public class ScoreGetter {
 		int end = Integer.valueOf(endUsername);
 		if (start > end) return students;
 		if (end - start < latch.getCount() - 1) {
-			students = getStudents(startUsername, endUsername, cookies);
+			for (int i = 0; i < 4; ++ i) {
+				if (start + i <= end)
+					new InsertStudentThread(students, String.valueOf(start + i), String.valueOf(start + i), cookies, latch).start();
+				else
+					new InsertStudentThread(students, "2", "1", cookies, latch).start();
+			}
 		} else {
 			int index = (end - start) / ((int) latch.getCount());
 			int i = 0;
@@ -58,6 +63,7 @@ public class ScoreGetter {
 		int end = Integer.valueOf(endUsername);
 		if (start > end) return students;
 		for (int i = start; i <= end; ++ i) {
+			System.out.println(i);
 			String username = String.valueOf(i);
 			System.out.print(username + "...");
 			String name = getName(username, cookies);
